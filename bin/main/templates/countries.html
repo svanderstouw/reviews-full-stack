@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Countries</title>
+</head>
+<body>
+	<h1>Countries of Reviews</h1>
+
+	<div th:each="country: ${countries}">
+		<h3>
+		<a th:href="@{/country(id=${country.id})}" ><span th:text="${country.countryName}"></span></a>
+		</h3>
+	</div>
+</body>
+</html>

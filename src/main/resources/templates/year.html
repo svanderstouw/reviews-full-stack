@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Year</title>
+</head>
+
+<body>
+
+	<header>
+		<h1>A Single Year</h1>
+	</header>
+
+	<div th:each="year: ${years}">
+		<h2 th:text="${year.year}"></h2>
+		<a href="http://localhost:8080/show-years">Back to home</a>
+
+
+		<h3>Cities visited during this year:</h3>
+		<div th:each="city: ${year.cities}">
+			<h3>
+				<a th:href="@{/city(id=${city.id})}" th:text="${city.cityName}"></a>
+			</h3>
+		</div>
+	</div>
+
+</body>
+</html>

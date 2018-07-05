@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Country</title>
+</head>
+
+<body>
+
+	<header>
+		<h1>A Single Country</h1>
+	</header>
+
+	<div th:each="country: ${countries}">
+		<h2 th:text="${country.countryName}"></h2>
+		<a href="http://localhost:8080/show-countries">Back to home</a>
+
+
+		<h3>Cities associated with this country:</h3>
+		<div th:each="city: ${country.cities}">
+			<h3>
+				<a th:href="@{/city(id=${city.id})}" th:text="${city.cityName}"></a>
+			</h3>
+		</div>
+	</div>
+
+</body>
+</html>

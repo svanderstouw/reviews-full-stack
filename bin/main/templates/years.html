@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Years</title>
+</head>
+<body>
+	<h1>Years of Reviews</h1>
+
+	<div th:each="year: ${years}">
+		<h3>
+		<a th:href="@{/year(id=${year.id})}" ><span th:text="${year.year}"></span></a>
+		</h3>
+	</div>
+</body>
+</html>

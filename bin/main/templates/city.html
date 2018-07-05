@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Review</title>
+</head>
+
+<body>
+	<div th:each="city: ${cities}">
+		<h1 th:text="'Review of ' + ${city.cityName} + ', ' + ${city.countryName}"></h1>
+		
+		<p>Date visited: <strong th:text="${city.year}"></strong></p>
+		<img th:src="@{'/images/' + ${city.imageUrl}}" />
+		<p th:text="${city.photoCaption}"></p>
+
+		<p th:text="${city.reviewText}"></p>
+
+		<a href="http://localhost:8080/show-cities">Back to home</a>
+
+	</div>
+</body>
+</html>

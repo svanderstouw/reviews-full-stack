@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Reviews</title>
+</head>
+<body>
+	<h1>Reviews of European Cities</h1>
+
+	<div th:each="city: ${cities}">
+		<h3>
+		<a th:href="@{/city(id=${city.id})}" ><span th:text="${city.cityName} + ', ' + ${city.countryName}"></span></a>
+		</h3>
+	</div>
+</body>
+</html>
