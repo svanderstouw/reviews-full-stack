@@ -1,5 +1,6 @@
-.gradle
+.gradle/
 /build/
+bin/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -7,7 +8,7 @@
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 

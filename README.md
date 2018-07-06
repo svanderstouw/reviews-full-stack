@@ -1,19 +1,23 @@
 # Reviews Full Stack Project
 
-This project create a reviews site that categorizes reviews of different European cities.
+This project creates a reviews site that categorizes reviews of different European cities and makes them available by country and by year visited.
 
-**Review Class**
+**Entities**
 
-This class has instance variables for an ID number, city name, country name, image URL, photo caption, date visited, and the text of the review.  It also contains a constructor and getters for each variable.
+City, Country, and Year classes are setup as Entities with OneToMany and ManyToOne relationships.
 
-**Review Repository Class**
+**Repository Instances**
 
-This class creates Review instances and populates a Map that stores the reviews.  It has findOne() and findAll() methods.
+The three repository instances extend the CRUD Repository with the CityRepository adding findByCountry, findByCountryId, findByYear, and findByYearId. 
 
 **Review Controller Class**
 
-This class has a findAllReviews() method mapped to a url that puts all of the reviews into a model, forwarding to a “reviews” template.  It also has a findOneReview() method mapped to a url including an id parameter that puts one of the reviews into the model, forwarding to a “review” template. This method expects an “id” query parameter in order to select a specific review.
+This class has findAll and findOne methods for each repository that are then mapped to group and individual HTML pages.
 
-**Reviews and Review HTML Pages**
+**Review Populator Class**
 
-These two pages are Thymeleaf templates that display information from the Review instances found in the Review Repository.
+This class populates the three repositories with data.
+
+**HTML Pages**
+
+These six pages are Thymeleaf templates that display information from the Controller Class and are formatted with HTML and CSS/Flexbox/Grid.
