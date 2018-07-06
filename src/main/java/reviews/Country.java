@@ -15,6 +15,7 @@ public class Country {
 	private long id;
 
 	private String countryName;
+	private String imageUrl;
 	
 	@OneToMany(mappedBy = "country")
 	private Collection<City> cities;
@@ -26,6 +27,10 @@ public class Country {
 	public String getCountryName() {
 		return countryName;
 	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
 	public Collection<City> getCities() {	
 		return cities;
@@ -35,8 +40,9 @@ public class Country {
 		
 	}
 	
-	public Country(String countryName) {
+	public Country(String countryName, String imageUrl) {
 		this.countryName = countryName;
+		this.imageUrl = imageUrl;
 	}
 
 	@Override

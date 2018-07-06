@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>Years</title>
-</head>
-<body>
-	<h1>Years of Reviews</h1>
 
-	<div th:each="year: ${years}">
-		<h3>
-		<a th:href="@{/year(id=${year.id})}" ><span th:text="${year.year}"></span></a>
-		</h3>
-	</div>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Years</title>
+
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+
+<body>
+
+	<header>
+		<h1>Travel Reviews</h1>
+	</header>
+
+	<main>
+		<h2>Reviews per Year</h2>
+		<section id="reviewList">
+			<div th:each="year: ${years}">
+				<a th:href="@{/year(id=${year.id})}">
+					<h3 th:text="${year.year}"></h3>
+					<img src="/images/calendar640.jpg" />
+					<span class="goTo480">Go to Reviews</span>
+				</a>
+			</div>
+		</section>
+	</main>
+	
+	<footer>
+		&copy; 2018 Steve Vander Stouw
+	</footer>
 </body>
+
 </html>

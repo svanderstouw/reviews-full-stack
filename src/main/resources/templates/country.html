@@ -1,29 +1,43 @@
 <!DOCTYPE HTML>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Country</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Country</title>
+
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 
 <body>
 
 	<header>
-		<h1>A Single Country</h1>
+		<h1>Travel Reviews</h1>
 	</header>
 
-	<div th:each="country: ${countries}">
-		<h2 th:text="${country.countryName}"></h2>
-		<a href="http://localhost:8080/show-countries">Back to home</a>
-
-
-		<h3>Cities associated with this country:</h3>
-		<div th:each="city: ${country.cities}">
-			<h3>
-				<a th:href="@{/city(id=${city.id})}" th:text="${city.cityName}"></a>
-			</h3>
+	<main>
+		<div th:each="country: ${countries}">
+			<h2 th:text="'Reviews in ' + ${country.countryName}"></h2>
+			<section id="reviewList">
+				<div th:each="city: ${country.cities}">
+					<a th:href="@{/city(id=${city.id})}">
+						<h3 th:text="${city.cityName} + ', ' + ${city.countryName}"></h3>
+						<img th:src="@{'/images/' + ${city.imageUrl}}">
+						<span class="goTo480">Go to Review</span>
+					</a>
+				</div>
+			</section>
+			<div id="backTo">
+				<a href="http://localhost:8080/show-countries">Back to All Countries</a>
+			</div>
 		</div>
-	</div>
+	</main>
+	<footer>
+		&copy; 2018 Steve Vander Stouw
+	</footer>
 
 </body>
+
 </html>

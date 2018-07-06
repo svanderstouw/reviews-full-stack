@@ -35,7 +35,7 @@ public class ReviewsJPAMappingsTest {
 	
 	@Test
 	public void shouldSaveAndLoadCountry() {
-		Country country = countryRepo.save(new Country("country"));
+		Country country = countryRepo.save(new Country("country", "imageURL"));
 		long countryId = country.getId();
 		
 		entityManager.flush();
@@ -48,7 +48,7 @@ public class ReviewsJPAMappingsTest {
 	
 	@Test
 	public void shouldGenerateCountryId() {
-		Country country = countryRepo.save(new Country("country"));
+		Country country = countryRepo.save(new Country("country", "imageURL"));
 		long countryId = country.getId();
 		
 		entityManager.flush();
@@ -59,7 +59,7 @@ public class ReviewsJPAMappingsTest {
 	
 	@Test
 	public void shouldSaveAndLoadCity() {
-		Country country = new Country("country name");
+		Country country = new Country("country name", "imageURL");
 		countryRepo.save(country);
 		Year year = new Year(2017);
 		yearRepo.save(year);
@@ -78,7 +78,7 @@ public class ReviewsJPAMappingsTest {
 	
 	@Test
 	public void shouldEstablishCityToCountryRelationship() {
-		Country country = new Country("country name");
+		Country country = new Country("country name", "imageURL");
 		countryRepo.save(country);
 		long countryId = country.getId();
 		Year year = new Year(2017);
@@ -100,8 +100,8 @@ public class ReviewsJPAMappingsTest {
 	
 	@Test
 	public void shouldFindCitiesForCountry() {
-		Country france = countryRepo.save(new Country("France"));
-		Country england = countryRepo.save(new Country("England"));
+		Country france = countryRepo.save(new Country("France", "imageURL"));
+		Country england = countryRepo.save(new Country("England", "imageURL"));
 		Year year = new Year(2017);
 		yearRepo.save(year);
 		City paris = cityRepo.save(new City("Paris", "imageURL", "photo caption", "review text", france, year));
@@ -118,9 +118,9 @@ public class ReviewsJPAMappingsTest {
 	
 	@Test
 	public void shouldFindCitiesForCountryId() {
-		Country france = countryRepo.save(new Country("France"));
+		Country france = countryRepo.save(new Country("France", "imageURL"));
 		long countryId = france.getId();
-		Country england = countryRepo.save(new Country("England"));
+		Country england = countryRepo.save(new Country("England", "imageURL"));
 		Year year = new Year(2017);
 		yearRepo.save(year);
 		City paris = cityRepo.save(new City("Paris", "imageURL", "photo caption", "review text", france, year));
@@ -150,7 +150,7 @@ public class ReviewsJPAMappingsTest {
 	
 	@Test
 	public void shouldEstablishCityToYearRelationship() {
-		Country country = new Country("country name");
+		Country country = new Country("country name", "imageURL");
 		countryRepo.save(country);
 		Year year = new Year(2017);
 		yearRepo.save(year);
@@ -172,8 +172,8 @@ public class ReviewsJPAMappingsTest {
 	
 	@Test
 	public void shouldFindCitiesForYear() {
-		Country france = countryRepo.save(new Country("France"));
-		Country england = countryRepo.save(new Country("England"));
+		Country france = countryRepo.save(new Country("France", "imageURL"));
+		Country england = countryRepo.save(new Country("England", "imageURL"));
 		Year y2017 = new Year(2017);
 		yearRepo.save(y2017);
 		Year y2015 = new Year(2015);
@@ -192,8 +192,8 @@ public class ReviewsJPAMappingsTest {
 	
 	@Test
 	public void shouldFindCitiesForYearId() {
-		Country france = countryRepo.save(new Country("France"));
-		Country england = countryRepo.save(new Country("England"));
+		Country france = countryRepo.save(new Country("France", "imageURL"));
+		Country england = countryRepo.save(new Country("England", "imageURL"));
 		Year y2017 = new Year(2017);
 		yearRepo.save(y2017);
 		Year y2015 = new Year(2015);

@@ -1,23 +1,45 @@
 <!DOCTYPE HTML>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Review</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Review</title>
+
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 
 <body>
 	<div th:each="city: ${cities}">
-		<h1 th:text="'Review of ' + ${city.cityName} + ', ' + ${city.countryName}"></h1>
-		
-		<p>Date visited: <strong th:text="${city.year}"></strong></p>
-		<img th:src="@{'/images/' + ${city.imageUrl}}" />
-		<p th:text="${city.photoCaption}"></p>
+		<header>
+			<h1 th:text="'Review of ' + ${city.cityName} + ', ' + ${city.countryName}"></h1>
+			<p>Year visited:
+				<strong th:text="${city.year}"></strong>
+			</p>
+		</header>
 
-		<p th:text="${city.reviewText}"></p>
-
-		<a href="http://localhost:8080/show-cities">Back to home</a>
-
+		<main>
+			<section id="review">
+				<div id="photoAndCap">
+					<img th:src="@{'/images/' + ${city.imageUrl}}" />
+					<em><p th:text="${city.photoCaption}"></p></em>
+				</div>
+				<div id="reviewText">
+					<p th:text="${city.reviewText}"></p>
+				</div>
+			</section>
+			<div id="backTo">
+				<a href="http://localhost:8080/show-cities">Back to All Cities</a>
+			</div>
+		</main>
 	</div>
+	
+	<footer>
+		&copy; 2018 Steve Vander Stouw
+	</footer>
+	
 </body>
+
 </html>

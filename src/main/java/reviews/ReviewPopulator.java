@@ -20,14 +20,14 @@ public class ReviewPopulator implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Country england = new Country("England");
-		england = countryRepo.save(england);
-		Country france = new Country("France");
+		Country france = new Country("France", "france.jpg");
 		france = countryRepo.save(france);
-		Country netherlands = new Country("Netherlands");
+		Country netherlands = new Country("Netherlands", "netherlands.jpg");
 		netherlands = countryRepo.save(netherlands);
-		Country portugal = new Country("Portugal");
+		Country portugal = new Country("Portugal", "portugal.jpg");
 		portugal = countryRepo.save(portugal);
+		Country uk = new Country("United Kingdom", "uk.jpg");
+		uk = countryRepo.save(uk);
 		
 		Year y2014 = new Year(2014);
 		y2014 = yearRepo.save(y2014);
@@ -49,7 +49,7 @@ public class ReviewPopulator implements CommandLineRunner{
 		City london = new City("London", "london640.jpg", 
 				"Big Ben and the London Underground",
 				"London is the L.A., D.C., and N.Y.C. of Britain — a living, breathing, thriving organism…a coral reef of humanity. Blow through the city on a double-decker bus, and take a pinch-me-I'm-in-London walk through the West End. Ogle the crown jewels at the Tower of London, hear the chimes of Big Ben, and see the Houses of Parliament in action. Cruise the Thames River, and take a spin on the London Eye. Hobnob with the tombstones in Westminster Abbey, visit with Leonardo, Botticelli, and Rembrandt in the National Gallery, and explore Harry Potter's stomping grounds at the film studio in Leavesden. Enjoy Shakespeare in a replica of the Globe Theatre and marvel at a glitzy, fun musical at a modern-day theater. Whisper across the dome of St. Paul's Cathedral, then rummage through our civilization's attic at the British Museum.",
-				england, y2017);
+				uk, y2017);
 		london = cityRepo.save(london);
 		City nazare = new City("Nazar\u00E9", "nazare640.jpg", 
 				"Overlooking Nazaré and Sítio",
