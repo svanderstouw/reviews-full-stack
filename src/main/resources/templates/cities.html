@@ -19,7 +19,7 @@
 		<h2>European Cities</h2>
 		<section id="reviewList">
 			<div th:each="city: ${cities}">
-				<a th:href="@{/city(id=${city.id}, backLink='/show-cities')}">
+				<a th:href="@{/city(id=${city.id})}">
 					<h3 th:text="${city.cityName} + ', ' + ${city.countryName}"></h3>
 					<img th:src="@{'/images/' + ${city.imageUrl}}">
 					<span class="goTo480">Go to Review</span>
