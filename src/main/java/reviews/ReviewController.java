@@ -21,12 +21,18 @@ public class ReviewController {
 	@Resource
 	YearRepository yearRepo;
 	
+	@RequestMapping("/")
+	public String homePage () {
+		return "index";
+	}
+	
 	@RequestMapping("/city")
-	public String findOneCity(@RequestParam(value = "id") long id, Model model) throws CityNotFoundException {
+	public String findOneCity(@RequestParam(value = "id") long id, Model model, @RequestParam(value = "backTo", required = false) String backTo) throws CityNotFoundException {
 		Optional<City> city = cityRepo.findById(id);
 		
 		if (city.isPresent()) {
 			model.addAttribute("cities", city.get());
+			model.addAttribute("backTo", backTo);
 			return ("city");
 		}
 		throw new CityNotFoundException();

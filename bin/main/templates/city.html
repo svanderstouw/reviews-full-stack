@@ -24,22 +24,29 @@
 			<section id="review">
 				<div id="photoAndCap">
 					<img th:src="@{'/images/' + ${city.imageUrl}}" />
-					<em><p th:text="${city.photoCaption}"></p></em>
+					<em>
+						<p th:text="${city.photoCaption}"></p>
+					</em>
 				</div>
 				<div id="reviewText">
 					<p th:text="${city.reviewText}"></p>
 				</div>
 			</section>
-			<div id="backTo">
-				<a href="http://localhost:8080/show-cities">Back to All Cities</a>
-			</div>
+			<section id="twoButtons">
+				<div class="backTo" id="previous">
+					<a>Back to Previous</a>
+				</div>
+				<div class="backTo">
+					<a href="/">Back to Home</a>
+				</div>
+			</section>
 		</main>
 	</div>
-	
+
 	<footer>
 		&copy; 2018 Steve Vander Stouw
 	</footer>
-	
+	<script src="./js/app.js"></script>
 </body>
 
 </html>

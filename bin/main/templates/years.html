@@ -17,7 +17,7 @@
 	</header>
 
 	<main>
-		<h2>Reviews per Year</h2>
+		<h2>Years with Reviews</h2>
 		<section id="reviewList">
 			<div th:each="year: ${years}">
 				<a th:href="@{/year(id=${year.id})}">
@@ -27,8 +27,11 @@
 				</a>
 			</div>
 		</section>
+		<div class="backTo">
+			<a href="/">Back to Home</a>
+		</div>
 	</main>
-	
+
 	<footer>
 		&copy; 2018 Steve Vander Stouw
 	</footer>

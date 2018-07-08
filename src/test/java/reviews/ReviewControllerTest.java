@@ -59,7 +59,7 @@ public class ReviewControllerTest {
 		long arbitraryCityId = 1;
 		when(cityRepo.findById(arbitraryCityId)).thenReturn(Optional.of(city));
 		
-		underTest.findOneCity(arbitraryCityId, model);
+		underTest.findOneCity(arbitraryCityId, model, "test");
 		verify(model).addAttribute("cities", city);
 	}
 	

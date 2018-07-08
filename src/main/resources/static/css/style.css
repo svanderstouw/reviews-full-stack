@@ -99,11 +99,12 @@ section {
 	margin-top: 1rem;
 }
 
-#backTo {
-	margin-top: 1.5rem;
+.backTo {
+    margin-top: 1.5rem;
+    cursor: pointer;
 }
 
-#backTo a {
+.backTo a {
     text-decoration: none;
     font-weight: bold;
     color: #111;
@@ -111,8 +112,16 @@ section {
     background: #eee; 
 }
 
-#backTo a:hover {
+.backTo a:hover {
     background: #ccc;
+}
+
+#twoButtons {
+    display: flex;   
+}
+
+#previous {
+    margin-right: 1rem;
 }
 
 footer {

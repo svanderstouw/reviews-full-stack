@@ -55,7 +55,7 @@ public class City {
 		return year.getYear();
 	}
 	
-	public City() {
+	protected City() {
 		
 	}
 
