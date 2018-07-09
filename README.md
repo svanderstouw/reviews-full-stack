@@ -20,4 +20,4 @@ This class populates the three repositories with data.
 
 **HTML Pages**
 
-These six pages are Thymeleaf templates that display information from the Controller Class and are formatted with HTML and CSS/Flexbox/Grid.
+These seven pages use Thymeleaf to display information from the Controller Class and are formatted with HTML and CSS/Flexbox/Grid.
