@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Year {
 
@@ -16,6 +18,7 @@ public class Year {
 	
 	private int year;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "year")
 	private Collection<City> cities;
 	

@@ -38,6 +38,12 @@ public class ReviewControllerMockMvcTest {
 	@MockBean
 	private YearRepository yearRepo;
 	
+	@MockBean
+	private TagRepository tagRepo;
+	
+	@MockBean
+	private CommentRepository commentRepo;
+	
 	@Mock
 	private City city;
 	@Mock
@@ -52,6 +58,11 @@ public class ReviewControllerMockMvcTest {
 	private Year year;
 	@Mock
 	private Year anotherYear;
+	
+	@Mock
+	private Tag tag;
+	@Mock
+	private Tag anotherTag;
 	
 	@Test
 	public void shouldRoutetoSingleCityView() throws Exception {
@@ -179,16 +190,29 @@ public class ReviewControllerMockMvcTest {
 		mvc.perform(get("/show-years")).andExpect(model().attribute("years", is(allYears)));
 	}
 	
+	@Test
+	public void shouldRoutetoSingleTagView() throws Exception {
+		long arbitraryTagId = 1;
+		when(tagRepo.findById(arbitraryTagId)).thenReturn(Optional.of(tag));
+		mvc.perform(get("/tag?id=1")).andExpect(view().name(is("tag")));
+	}
 	
+	@Test
+	public void shouldBeOkForTagCity() throws Exception {
+		long arbitraryTagId = 1;
+		when(tagRepo.findById(arbitraryTagId)).thenReturn(Optional.of(tag));
+		mvc.perform(get("/tag?id=1")).andExpect(status().isOk());
+	}
 	
+	@Test
+	public void shouldNotBeOkForTagCity() throws Exception {
+		mvc.perform(get("/tag?id=1")).andExpect(status().isNotFound());
+	}
 	
+	@Test
+	public void shouldPutSingleTagIntoModel() throws Exception {
+		when(tagRepo.findById(1L)).thenReturn(Optional.of(tag));
+		mvc.perform(get("/tag?id=1")).andExpect(model().attribute("tags", is(tag)));
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-
 }

@@ -32,6 +32,11 @@ public class ReviewsJPAMappingsTest {
 	@Resource
 	private YearRepository yearRepo;
 	
+	@Resource
+	private TagRepository tagRepo;
+	
+	@Resource
+	private CommentRepository commentRepo;
 	
 	@Test
 	public void shouldSaveAndLoadCountry() {
@@ -211,18 +216,166 @@ public class ReviewsJPAMappingsTest {
 		assertThat(citiesForYear, containsInAnyOrder(colmar, london));
 	}
 	
+	@Test
+	public void shouldSaveAndLoadTag() {
+		Tag tag = tagRepo.save(new Tag("tagName"));
+		long tagId = tag.getId();
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Optional<Tag> result = tagRepo.findById(tagId);
+		tag = result.get();
+		assertThat(tag.getName(), is("tagName"));
+	}
 	
+	@Test
+	public void shouldGenerateTagId() {
+		Tag tag = tagRepo.save(new Tag("tagName"));
+		long tagId = tag.getId();
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		assertThat(tagId, is(greaterThan(0L)));	
+	}
 	
+	@Test
+	public void shouldFindCitiesForTag() {
+		Tag tag1 = tagRepo.save(new Tag("Tag 1"));
+		Country france = countryRepo.save(new Country("France", "imageURL"));
+		Year y2017 = yearRepo.save(new Year(2017));
+		
+		City paris = cityRepo.save(new City("Paris", "imageURL", "photo caption", "review text", france, y2017, tag1));
+		City colmar = cityRepo.save(new City("Colmar", "imageURL", "photo caption", "review text", france, y2017, tag1));
+		City avignon = cityRepo.save(new City("Avignon", "imageURL", "photo caption", "review text", france, y2017));
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Collection<City> citiesForTag = cityRepo.findByTagsContains(tag1);
+		assertThat(citiesForTag, containsInAnyOrder(paris, colmar));
+	}
 	
+	@Test
+	public void shouldFindCitiesForTagId() {
+		Tag tag2 = tagRepo.save(new Tag("Tag 2"));
+		long tagId = tag2.getId();
+		Country france = countryRepo.save(new Country("France", "imageURL"));
+		Year y2017 = yearRepo.save(new Year(2017));
+		
+		City paris = cityRepo.save(new City("Paris", "imageURL", "photo caption", "review text", france, y2017));
+		City colmar = cityRepo.save(new City("Colmar", "imageURL", "photo caption", "review text", france, y2017, tag2));
+		City avignon = cityRepo.save(new City("Avignon", "imageURL", "photo caption", "review text", france, y2017, tag2));
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Collection<City> citiesForTag = cityRepo.findByTagsId(tagId);
+		assertThat(citiesForTag, containsInAnyOrder(avignon, colmar));
+	}
 	
+	@Test
+	public void shouldFindTagsForCity() {
+		Tag tag1 = tagRepo.save(new Tag("Tag 1"));
+		Tag tag2 = tagRepo.save(new Tag("Tag 2"));
+		Tag tag3 = tagRepo.save(new Tag("Tag 3"));
+		Country france = countryRepo.save(new Country("France", "imageURL"));
+		Year y2017 = yearRepo.save(new Year(2017));
+		
+		City paris = cityRepo.save(new City("Paris", "imageURL", "photo caption", "review text", france, y2017, tag1, tag3));
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Collection<Tag> tags = tagRepo.findByCitiesContains(paris);
+		assertThat(tags, containsInAnyOrder(tag3, tag1));	
+	}
 	
+	@Test
+	public void shouldFindTagsForCityId() {
+		Tag tag1 = tagRepo.save(new Tag("Tag 1"));
+		Tag tag2 = tagRepo.save(new Tag("Tag 2"));
+		Tag tag3 = tagRepo.save(new Tag("Tag 3"));
+		Country france = countryRepo.save(new Country("France", "imageURL"));
+		Year y2017 = yearRepo.save(new Year(2017));
+		
+		City paris = cityRepo.save(new City("Paris", "imageURL", "photo caption", "review text", france, y2017, tag1, tag3));
+		long cityId = paris.getId();
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Collection<Tag> tags = tagRepo.findByCitiesId(cityId);
+		assertThat(tags, containsInAnyOrder(tag3, tag1));	
+	}
 	
+	@Test
+	public void shouldSaveAndLoadComment() {
+		Comment comment = commentRepo.save(new Comment("example"));
+		long commentId = comment.getId();
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Optional<Comment> result = commentRepo.findById(commentId);
+		comment = result.get();
+		assertThat(comment.getCommentText(), is("example"));
+	}
 	
+	@Test
+	public void shouldEstablishCommentToCityRelationship() {
+		Country country = countryRepo.save(new Country("country name", "imageURL"));
+		Year year = yearRepo.save(new Year(2017));
+		City city = cityRepo.save(new City("city name 1", "imageURL", "photo caption", "review text", country, year));
+		long cityId = city.getId();
+		
+		Comment comment1 = commentRepo.save(new Comment("example", "author", city));
+		Comment comment2 = commentRepo.save(new Comment("example2", "author2", city));
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Optional<City> result = cityRepo.findById(cityId);
+		city = result.get();
+		assertThat(city.getComments(), containsInAnyOrder(comment1, comment2));
+	}
 	
+	@Test
+	public void shouldFindCommentsForCity() {
+		Country country = countryRepo.save(new Country("country name", "imageURL"));
+		Year year = yearRepo.save(new Year(2017));
+		City city = cityRepo.save(new City("city name 1", "imageURL", "photo caption", "review text", country, year));
+		City city2 = cityRepo.save(new City("city name 2", "imageURL", "photo caption", "review text", country, year));
+
+		Comment comment1 = commentRepo.save(new Comment("example", "author", city));
+		Comment comment2 = commentRepo.save(new Comment("example2", "author2", city2));
+		Comment comment3 = commentRepo.save(new Comment("example3", "author3", city));
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Collection<Comment> commentsForCity = commentRepo.findByCity(city);
+		assertThat(commentsForCity, containsInAnyOrder(comment1, comment3));
+	}
 	
-	
-	
-	
-	
+	@Test
+	public void shouldFindCommentsForCityId() {
+		Country country = countryRepo.save(new Country("country name", "imageURL"));
+		Year year = yearRepo.save(new Year(2017));
+		City city = cityRepo.save(new City("city name 1", "imageURL", "photo caption", "review text", country, year));
+		City city2 = cityRepo.save(new City("city name 2", "imageURL", "photo caption", "review text", country, year));
+		long cityId = city2.getId();
+		
+		Comment comment1 = commentRepo.save(new Comment("example", "author", city));
+		Comment comment2 = commentRepo.save(new Comment("example2", "author2", city2));
+		Comment comment3 = commentRepo.save(new Comment("example3", "author3", city2));
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Collection<Comment> commentsForCity = commentRepo.findByCityId(cityId);
+		assertThat(commentsForCity, containsInAnyOrder(comment2, comment3));
+	}
 
 }

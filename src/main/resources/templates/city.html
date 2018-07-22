@@ -21,6 +21,7 @@
 		</header>
 
 		<main>
+			<span id="cityId" style="display:none" th:text="${city.id}"></span>
 			<section id="review">
 				<div id="photoAndCap">
 					<img th:src="@{'/images/' + ${city.imageUrl}}" />
@@ -33,11 +34,38 @@
 				</div>
 			</section>
 			<section id="twoButtons">
-				<div class="backTo" id="previous">
-					<a>Back to Previous</a>
-				</div>
 				<div class="backTo">
+					<a id="previous">Back to Previous</a>
 					<a href="/">Back to Home</a>
+				</div>
+			</section>
+			<section id="comments">
+				<h3>Comments:</h3>
+				<div class="commentsDiv" th:each="comment: ${city.comments}">
+					<span th:text="${comment.commentText}"></span>
+					<div id="commentAuthor">
+						<em>
+							<span th:text="'- ' + ${comment.authorName}"></span>
+						</em>
+					</div>
+				</div>
+
+				<h4>Add Comment:</h4>
+				<form id="commentInput" th:action="@{/addComment}" method="POST">
+					<input id="authorInput" type="text" name="authorName" placeholder="Your Name" />
+					<textarea id="commentTextInput" form="commentInput" name="commentText" rows="3" cols="105" placeholder="Type your comment here"></textarea>
+					<input type="hidden" name="cityName" th:value="${city.cityName}" />
+					<input id="commentSubmit" type="submit" value="Add Comment" />
+				</form>
+			</section>
+			<section id="cityTagsContainer">
+				<h4>Tags:</h4>
+				<section id="cityTags">
+					&nbsp;
+				</section>
+				<div class="tagButton">
+					<a id="addTagButton">Add tag</a>
+					<a id="removeTagButton">Remove tag</a>
 				</div>
 			</section>
 		</main>
@@ -46,7 +74,7 @@
 	<footer>
 		&copy; 2018 Steve Vander Stouw
 	</footer>
-	<script src="./js/app.js"></script>
+	<script src="./js/city.js"></script>
 </body>
 
 </html>

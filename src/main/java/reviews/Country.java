@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Country {
 	
@@ -17,6 +19,7 @@ public class Country {
 	private String countryName;
 	private String imageUrl;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "country")
 	private Collection<City> cities;
 	

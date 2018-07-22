@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Year</title>
+
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+
+<body>
+
+	<header>
+		<h1>Travel Reviews</h1>
+	</header>
+
+	<main>
+		<div th:each="tag: ${tags}">
+			<h2 th:text="'Reviews with tag: ' + ${tag.name}"></h2>
+			<section id="reviewList">
+				<div th:each="city: ${tag.cities}">
+					<a th:href="@{/city(id=${city.id})}">
+						<h3 th:text="${city.cityName} + ', ' + ${city.countryName}"></h3>
+						<img th:src="@{'/images/' + ${city.imageUrl}}">
+						<span class="goTo480">Go to Review</span>
+					</a>
+				</div>
+			</section>
+			<div class="backTo">
+				<a href="/">Back to Home</a>
+			</div>
+		</div>
+	</main>
+	<footer>
+		&copy; 2018 Steve Vander Stouw
+	</footer>
+
+</body>
+
+</html>

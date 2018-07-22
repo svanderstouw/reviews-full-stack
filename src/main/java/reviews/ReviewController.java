@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,22 +15,24 @@ public class ReviewController {
 
 	@Resource
 	CityRepository cityRepo;
-	
+
 	@Resource
 	CountryRepository countryRepo;
-	
+
 	@Resource
 	YearRepository yearRepo;
 	
-	@RequestMapping("/")
-	public String homePage () {
-		return "index";
-	}
+	@Resource
+	TagRepository tagRepo;
 	
+	@Resource
+	CommentRepository commentRepo;
+
 	@RequestMapping("/city")
-	public String findOneCity(@RequestParam(value = "id") long id, Model model, @RequestParam(value = "backTo", required = false) String backTo) throws CityNotFoundException {
+	public String findOneCity(@RequestParam(value = "id") long id, Model model,
+			@RequestParam(value = "backTo", required = false) String backTo) throws CityNotFoundException {
 		Optional<City> city = cityRepo.findById(id);
-		
+
 		if (city.isPresent()) {
 			model.addAttribute("cities", city.get());
 			model.addAttribute("backTo", backTo);
@@ -43,11 +46,11 @@ public class ReviewController {
 		model.addAttribute("cities", cityRepo.findAll());
 		return ("cities");
 	}
-	
+
 	@RequestMapping("/country")
 	public String findOneCountry(@RequestParam(value = "id") long id, Model model) throws CountryNotFoundException {
 		Optional<Country> country = countryRepo.findById(id);
-		
+
 		if (country.isPresent()) {
 			model.addAttribute("countries", country.get());
 			return ("country");
@@ -64,7 +67,7 @@ public class ReviewController {
 	@RequestMapping("/year")
 	public String findOneYear(@RequestParam(value = "id") long id, Model model) throws YearNotFoundException {
 		Optional<Year> year = yearRepo.findById(id);
-		
+
 		if (year.isPresent()) {
 			model.addAttribute("years", year.get());
 			return ("year");
@@ -77,14 +80,48 @@ public class ReviewController {
 		model.addAttribute("years", yearRepo.findAll());
 		return ("years");
 	}
+
+	@RequestMapping("/tag")
+	public String findOneTag(@RequestParam(value = "id") long id, Model model) throws TagNotFoundException {
+		Optional<Tag> tag = tagRepo.findById(id);
+
+		if (tag.isPresent()) {
+			model.addAttribute("tags", tag.get());
+			return ("tag");
+		}
+		throw new TagNotFoundException();
+	}
+
+	@RequestMapping("/")
+	public String findAllTags(Model model) {
+		model.addAttribute("tags", tagRepo.findAll());
+		return ("index");
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@PostMapping("/addComment")
+	public String addComment(
+			@RequestParam(name = "commentText") String commentText,
+			@RequestParam(name = "authorName") String authorName,
+			@RequestParam(name = "cityName") String cityName) throws CommentExistsException {
+		
+		Optional<Comment> existingComment = commentRepo.findByCommentText(commentText);
+		
+		if (existingComment.isPresent()) {
+			throw new CommentExistsException();
+		}
+		
+		Optional<City> cityOptional = cityRepo.findByCityName(cityName);
+		City city = cityOptional.get();
+		
+//		if(authorName == "") {
+//			authorName = "anonymous";
+//		}
+//		
+//		if (commentText != "") {
+//			commentRepo.save(new Comment(commentText, authorName, city));
+//		}
+		
+		return "redirect:/city?id=" + city.getId();
+	}
+
 }

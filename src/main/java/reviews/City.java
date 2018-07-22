@@ -1,11 +1,19 @@
 package reviews;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Arrays;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class City {
@@ -26,6 +34,14 @@ public class City {
 	
 	@ManyToOne
 	private Year year;
+	
+	@JsonIgnore
+	@ManyToMany
+	private Collection<Tag> tags;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "city")
+	private Collection<Comment> comments;
 	
 	public long getId() {
 		return id;
@@ -55,6 +71,14 @@ public class City {
 		return year.getYear();
 	}
 	
+	public Collection<Tag> getTags() {
+		return tags;
+	}
+	
+	public Collection<Comment> getComments() {
+		return comments;
+	}
+	
 	protected City() {
 		
 	}
@@ -66,6 +90,16 @@ public class City {
 		this.reviewText = reviewText;
 		this.country = country;
 		this.year = year;
+	}
+
+	public City(String cityName, String imageUrl, String photoCaption, String reviewText, Country country, Year year, Tag...tags) {
+		this.cityName = cityName;
+		this.imageUrl = imageUrl;
+		this.photoCaption = photoCaption;
+		this.reviewText = reviewText;
+		this.country = country;
+		this.year = year;
+		this.tags = new HashSet<>(Arrays.asList(tags));
 	}
 
 	@Override
@@ -89,5 +123,6 @@ public class City {
 			return false;
 		return true;
 	}
+
 
 }

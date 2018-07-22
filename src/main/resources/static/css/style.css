@@ -34,7 +34,11 @@ h2 {
 }
 
 section {
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+}
+
+#cityTags, #tagList {
+    margin: 0 0;
 }
 
 #reviewList {
@@ -99,29 +103,109 @@ section {
 	margin-top: 1rem;
 }
 
-.backTo {
-    margin-top: 1.5rem;
-    cursor: pointer;
+#tagList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.backTo a {
+#tagList a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #eee;
+    padding: 0.2rem 0.5rem;
+    text-decoration: none;
+    transition: 0.3s;
+    /* position: relative; */
+    cursor: pointer;
+    color: #111;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#tagList a:hover {
+    background: #ccc;
+}
+
+#cityTagsContainer {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#cityTags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#cityTags span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #eee;
+    padding: 0.2rem 0.5rem;
+    transition: 0.3s;
+    /* position: relative; */
+    color: #111;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+	font-size: 1rem;
+}
+
+#photoAndCap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.backTo, .tagButton {
+    margin-top: 0.5rem;
+}
+
+.backTo a, .tagButton a {
     text-decoration: none;
     font-weight: bold;
     color: #111;
     padding: 0.7rem 1rem;
-    background: #eee; 
+    background: #eee;
+    margin-right: 0.3rem;
+    font-size: 1rem;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
-.backTo a:hover {
+.backTo a:hover, .tagButton a:hover {
     background: #ccc;
 }
 
-#twoButtons {
-    display: flex;   
+.commentsDiv {
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    padding: 0.5rem 1.2rem;
+    margin-bottom: 0.7rem;
+    border-radius: 0.7rem;
 }
 
-#previous {
-    margin-right: 1rem;
+#commentAuthor {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#commentInput {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#commentTextInput, #commentSubmit {
+    margin-top: 0.5rem;
+}
+
+#commentSubmit {
+    padding: 0.2rem 0.5rem;
 }
 
 footer {
