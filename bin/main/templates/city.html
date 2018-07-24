@@ -41,20 +41,19 @@
 			</section>
 			<section id="comments">
 				<h3>Comments:</h3>
-				<div class="commentsDiv" th:each="comment: ${city.comments}">
+				<div id="commentsContainer">
+					<!-- <div class="commentsDiv" th:each="comment: ${city.comments}">
 					<span th:text="${comment.commentText}"></span>
 					<div id="commentAuthor">
-						<em>
-							<span th:text="'- ' + ${comment.authorName}"></span>
-						</em>
+						<span th:text="'- ' + ${comment.authorName}"></span>
 					</div>
+				</div> -->
 				</div>
-
 				<h4>Add Comment:</h4>
-				<form id="commentInput" th:action="@{/addComment}" method="POST">
+				<form id="commentInput">
 					<input id="authorInput" type="text" name="authorName" placeholder="Your Name" />
 					<textarea id="commentTextInput" form="commentInput" name="commentText" rows="3" cols="105" placeholder="Type your comment here"></textarea>
-					<input type="hidden" name="cityName" th:value="${city.cityName}" />
+					<input type="hidden" name="cityId" th:value="${city.id}" />
 					<input id="commentSubmit" type="submit" value="Add Comment" />
 				</form>
 			</section>

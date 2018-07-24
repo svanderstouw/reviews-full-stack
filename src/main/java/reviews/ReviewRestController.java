@@ -7,19 +7,24 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping
-public class TagsRestController {
+public class ReviewRestController {
 	
 	@Resource
 	public CityRepository cityRepo;
 	
 	@Resource
 	public TagRepository tagRepo;
+	
+	@Resource
+	public CommentRepository commentRepo;
 	
 	@GetMapping("/tags")
 	public Iterable<Tag> findAllTags() {
@@ -29,6 +34,11 @@ public class TagsRestController {
 	@GetMapping("/tags/{id}")
 	public Iterable<Tag> findAllTagsByCityId(@PathVariable long id) {
 		return tagRepo.findByCitiesId(id);
+	}
+	
+	@GetMapping("/comments/{id}")
+	public Iterable<Comment> findAllCommentsByCityId(@PathVariable long id) {
+		return commentRepo.findByCityId(id);
 	}
 
 	@PutMapping("/addTag/{tagName}/city/{cityId}")
@@ -98,6 +108,32 @@ public class TagsRestController {
 		}
 		
 		return tagRepo.findAll();
+	}
+	
+	@PostMapping("/addComment")
+	public Iterable<Comment> addComment(
+			@RequestParam(name = "commentText") String commentText,
+			@RequestParam(name = "authorName") String authorName,
+			@RequestParam(name = "cityId") long cityId) throws CommentExistsException {
+		
+		Optional<Comment> existingComment = commentRepo.findByCommentText(commentText);
+		
+		if (existingComment.isPresent()) {
+			throw new CommentExistsException();
+		}
+		
+		Optional<City> cityOptional = cityRepo.findById(cityId);
+		City city = cityOptional.get();
+		
+		if(authorName == "") {
+			authorName = "Anonymous";
+		}
+		
+		if (commentText != "") {
+			commentRepo.save(new Comment(commentText, authorName, city));
+		}
+		
+		return commentRepo.findByCityId(cityId);
 	}
 	
 	

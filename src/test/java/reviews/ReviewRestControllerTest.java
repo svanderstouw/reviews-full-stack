@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class TagsRestControllerTest {
+public class ReviewRestControllerTest {
 
 	@Resource
 	private TestRestTemplate restTemplate;

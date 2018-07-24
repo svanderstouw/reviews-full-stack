@@ -98,30 +98,6 @@ public class ReviewController {
 		return ("index");
 	}
 	
-	@PostMapping("/addComment")
-	public String addComment(
-			@RequestParam(name = "commentText") String commentText,
-			@RequestParam(name = "authorName") String authorName,
-			@RequestParam(name = "cityName") String cityName) throws CommentExistsException {
-		
-		Optional<Comment> existingComment = commentRepo.findByCommentText(commentText);
-		
-		if (existingComment.isPresent()) {
-			throw new CommentExistsException();
-		}
-		
-		Optional<City> cityOptional = cityRepo.findByCityName(cityName);
-		City city = cityOptional.get();
-		
-//		if(authorName == "") {
-//			authorName = "anonymous";
-//		}
-//		
-//		if (commentText != "") {
-//			commentRepo.save(new Comment(commentText, authorName, city));
-//		}
-		
-		return "redirect:/city?id=" + city.getId();
-	}
+	
 
 }
