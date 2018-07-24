@@ -24,8 +24,8 @@ This class populates the five repositories with data.
 
 **HTML Pages**
 
-These seven pages use Thymeleaf to display information from the Controller Class and are formatted with HTML and CSS/Flexbox/Grid.
+These eight pages use Thymeleaf to display information from the Controller Class and are formatted with HTML and CSS/Flexbox/Grid.
 
 **JavaScript Files**
 
-These files utilize JSON and AJAX to add and render the Tags and Comments, and to remove Tags.
+These files utilize JSON and AJAX to add and render Tags and Comments to reviews, and to remove Tags from one review or all of the reviews.

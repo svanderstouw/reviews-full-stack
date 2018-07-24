@@ -83,6 +83,10 @@ public class ReviewPopulator implements CommandLineRunner{
 		comment1 = commentRepo.save(comment1);
 		Comment comment2 = new Comment("I love seeing theater productions on the West End.", "Jane", london);
 		comment2 = commentRepo.save(comment2);
+		Comment comment3 = new Comment("The public transportation system in the Netherlands is fantastic.  It is so easy to take day trips from Amsterdam to smaller towns and other cities.", "Gary", amsterdam);
+		comment3 = commentRepo.save(comment3);
+		Comment comment4 = new Comment("If you come here, make sure you drive the Route Du Vin and visit the many charming nearby villages such as Eguisheim and Kaysersberg.", "Jenny", colmar);
+		comment4 = commentRepo.save(comment4);
 	}
 
 	
